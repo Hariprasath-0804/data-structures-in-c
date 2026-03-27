@@ -1,0 +1,32 @@
+#include <stdio.h>
+#define MAX 5
+
+int cq[MAX], front = -1, rear = -1;
+
+void enqueue(int val) {
+    if ((rear + 1) % MAX == front) {
+        printf("Circular Queue Overflow\n");
+        return;
+    }
+    if (front == -1) front = 0;
+    rear = (rear + 1) % MAX;
+    cq[rear] = val;
+}
+
+int dequeue() {
+    if (front == -1) {
+        printf("Circular Queue Underflow\n");
+        return -1;
+    }
+    int val = cq[front];
+    if (front == rear) front = rear = -1;
+    else front = (front + 1) % MAX;
+    return val;
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    printf("Dequeued: %d\n", dequeue());
+    return 0;
+}
