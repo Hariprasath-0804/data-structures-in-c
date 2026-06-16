@@ -1,0 +1,47 @@
+#include <stdio.h>
+int prec(char c){
+    if(c=='+' || c=='-')
+        return 1;
+    if(c=='*' || c=='/')
+        return 2;
+        
+}
+int eval(int v1, int v2, char c){
+    if(c=='+')
+        return v2+v1;
+    if(c=='-')
+        return v2-v1;
+    if(c=='*')
+        return v2*v1;
+    if(c=='/')
+        return v2/v1;
+}
+int main()
+{
+    char exp[100];
+    scanf("%s",exp);
+    int opd[100];
+    char opr[100];
+    int t1=-1,t2=-1;
+    for(int i=0;exp[i]!='\0';i++){
+        if(exp[i]>='0' && exp[i]<='9'){
+            opd[++t1]=exp[i]-'0';
+        }
+        else{
+            while(t2!=-1 && (prec(exp[i])<prec(opr[t2]))){
+                int v1=opd[t1--];
+                int v2=opd[t1--];
+                opd[++t1]=eval(v1,v2,opr[t2--]);
+            }
+            opr[++t2]=exp[i];
+        }
+    }
+    while(t2!=-1){
+        
+        int v1=opd[t1--];
+        int v2=opd[t1--];
+        opd[++t1]=eval(v1,v2,opr[t2--]);
+    }
+    printf("%d",opd[t1]);
+        
+    }
