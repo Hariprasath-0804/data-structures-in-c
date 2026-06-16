@@ -1,0 +1,70 @@
+#include <stdio.h>
+int stk[100];
+int top=-1;
+int size=5;
+void push(int x){
+    if(top==size-1){
+        printf("stack overflow\n");
+    }
+    else{
+        stk[++top]=x;
+        printf("value %d pushed\n",x);
+    }
+}
+void pop(){
+    if(top==-1){
+        printf("stack underflow");
+    }
+    else{
+        printf("value %d popped\n",stk[top--]);
+    }
+}
+void display(){
+    if(top==-1){
+        printf("no element to display");
+    }
+    else{
+        printf("stack elements are;\n");
+        for(int i=top;i>=0;i--){
+            
+            printf("%d ",stk[i]);
+        }
+        printf("\n");
+    }
+    
+}
+
+int main()
+{
+    while(1){
+        int ch;
+        printf("enter your choice\n");
+        printf("1.push\n2.pop\n3,display\n4.Exit\n");
+        scanf("%d",&ch);
+        if(ch==1){
+            printf("enter the values to push\n");
+            scanf("%d",&ch);
+            push(ch);
+        }
+        else if(ch==2){
+            pop();
+        }
+        else if(ch==3){
+            display();
+        }
+        else if(ch==4){
+            printf("exiting...");
+            break;
+        }
+        else{
+            printf("invalid choice\n");
+            
+        }
+            
+    }
+}
+    
+    
+    
+    
+
