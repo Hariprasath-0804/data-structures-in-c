@@ -1,0 +1,112 @@
+#include <stdio.h>
+int queue[100];
+int size=5;
+int f=-1;
+int r=-1;
+void rearenqueue(int x){
+    if((r+1)%size==f)
+        printf("Queue is full\n");
+    else if(f==-1 || r==-1){
+        f=r=0;
+        queue[r]=x;
+        printf("Value %d enqueued\n",x);
+    }
+    else{
+        r=(r+1)%size;
+        queue[r]=x;
+        printf("Value %d enqueued\n",x);
+    }
+}
+void frontenqueue(int x){
+    if((r+1)%size==f)
+        printf("Queue is full\n");
+    else if(f==-1 || r==-1){
+        f=r=0;
+        queue[f]=x;
+        printf("Value %d enqueued\n",x);
+    }
+    else{
+        if(f!=0){
+            f--;
+            queue[f]=x;
+        }
+        else{
+            f=size-1;
+            queue[f]=x;
+        }
+
+        printf("Value %d enqueued\n",x);
+    }
+}
+void frontdequeue(){
+    if(f==-1){
+        printf("Queue is empty\n");
+    }
+    else if(f==r){
+        printf("Dequeued element is %d\n",queue[f]);
+        f=r=-1;
+    }
+    else{
+        printf("Dequeued element is %d\n",queue[f]);
+        f=(f+1)%size;
+    }
+}
+void reardequeue(){
+    if(f==-1){
+        printf("Queue is empty\n");
+    }
+    else if(f==r){
+        printf("Dequeued element is %d\n",queue[r]);
+        f=r=-1;
+    }
+    else{
+        printf("Dequeued element is %d\n",queue[r]);
+        r=(r-1+size)%size;
+    }
+}
+void display(){
+    if(f==-1)
+        printf("No element to display");
+    else{
+        printf("Queue elements are\n");
+        for(int i=f;;i=(i+1)%size){
+            printf("%d ",queue[i]);
+            if(i==r)
+                break;
+        }
+        printf("\n");
+    }
+}
+int main()
+{
+    while(1){
+        int ch, x;
+        printf("Enter your choice\n");
+        printf("1.Front Enqueue\n2.Rear Enqueue\n3.Front Dequeue\n4.Rear Dequeue\n5.Display\n6.Exit");
+        scanf("%d",&ch);
+        if(ch==1){
+            printf("Enter the value to Enqueue:");
+            scanf("%d",&x);
+            frontenqueue(x);
+        }
+        else if(ch==2){
+            printf("Enter the value to Enqueue:");
+            scanf("%d",&x);
+            rearenqueue(x);
+        }
+        else if(ch==3)
+            frontdequeue();
+        else if(ch==4)
+            reardequeue();
+        else if(ch==5)
+            display();
+        else if(ch==6){
+            printf("Exiting...");
+            break;
+        }
+        else{
+            printf("Invalid choice\n");
+        }
+    }
+    
+}
